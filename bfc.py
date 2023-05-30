@@ -43,10 +43,10 @@ def run( code ) :
         elif i == "," :
             while 1 :
                 try :
-                    inp = int( input() )
+                    inp = ord( input() )
                     memory[p] = inp
                     break
-                except ValueError :
+                except TypeError :
                     pass
             code_p += 1
         elif i == "." :

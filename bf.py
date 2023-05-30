@@ -15,35 +15,13 @@ if not argl :
     args = [ "" ]
 
 if argl == 1 and os.path.exists( args[0] ) :
-    file_path = args[1]
-    file_type = os.path.splitext( os.path.split( file_path )[-1] )[-1]
+    file_path = args[0]
     code = bfc.build( file_path )
-    file_dir = os.path.split( file_path )[0]
-    file_name = os.path.splitext( file_path )[0]
-    code_c_path = os.path.join( file_dir , file_name + ".bfc" )
-    bfc.save_file( code_c_path , code )
     bfc.run( code )
 elif args[0] == "-b" and argl > 1 and os.path.exists( args[1] ) :
     file_path = args[1]
     code = bfc.build( file_path )
-    file_dir = os.path.split( file_path )[0]
-    if not file_dir :
-        file_dir = "." + os.sep
-    file_name = os.path.splitext( file_path )[0]
-    if argl > 3 and os.path.exists( args[3] ) :
-        code_c_path = os.path.join( args[3] , file_name + ".bfc" )
-    else :
-        code_c_path = os.path.join( file_dir , file_name + ".bfc" )
-    bfc.save_file( code_c_path , code )
-elif args[0] == "-r" and argl > 1 and os.path.exists( args[1] ) :
-    file_path = args[1]
-    file_type = os.path.splitext( os.path.split( file_path )[-1] )[-1]
-    if file_type == ".bf" :
-        code = bfc.build( file_path )
-    else :
-        with open( file_path , "r" , encoding = "utf-8" ) as file :
-            code = file.read()
-    bfc.run( code )
+    bfc.save_file( file_path + "c" , code )
 else : \
 print( \
 """
