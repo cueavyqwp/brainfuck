@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "brainfuck",
+            "type": "python",
+            "request": "launch",
+            "program": "bf.py",
+            "args": ["${file}"],
+            "justMyCode": true
+        }
+    ]
+}

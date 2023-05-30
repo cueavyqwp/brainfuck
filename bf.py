@@ -25,9 +25,7 @@ elif args[0] == "-b" and argl > 1 and os.path.exists( args[1] ) :
 else : \
 print( \
 """
-[ --build / -b ] [ --run / -r ] file
+[ --build / -b ] file
 run and build '.bfc' file | 运行并生成'.bfc'文件
-
 -b [ path ] : build '.bfc' file | 生成`.bfc`文件
--r : run brainfuck file | 运行brainfuck文件
 """)
