@@ -20,7 +20,7 @@ if argl == 1 and os.path.exists( args[0] ) :
     print(file_type)
 elif args[0] == "-b" and argl > 1 and os.path.exists( args[1] ) :
     file_path = args[1]
-    code_c =  bfc.build( file_path )
+    code_c = bfc.build( file_path )
     file_dir = os.path.split( file_path )[0]
     if not file_dir :
         file_dir = "." + os.sep
@@ -32,7 +32,13 @@ elif args[0] == "-b" and argl > 1 and os.path.exists( args[1] ) :
     bfc.save_file( code_c_path , code_c )
 elif args[0] == "-r" and argl > 1 and os.path.exists( args[1] ) :
     file_path = args[1]
-    print("r")
+    file_type = os.path.splitext( os.path.split( file_path )[-1] )[-1]
+    if file_type == ".bf" :
+        code = bfc.build( file_path )
+    else :
+        with open( file_path , "r" , encoding = "utf-8" ) as file :
+            code = file.read()
+    bfc.run( code )
 else : \
 print( \
 """

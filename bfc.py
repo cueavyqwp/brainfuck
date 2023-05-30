@@ -19,5 +19,5 @@ def save_file( code_c_path , code_c ) :
     with open( code_c_path , "w" , encoding = "utf-8" ) as file :
         file.write( code_c )
 
-def run( file_path ) :
-    pass
+def run( code ) :
+    print(code)
