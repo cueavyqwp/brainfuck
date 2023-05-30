@@ -20,4 +20,42 @@ def save_file( code_c_path , code_c ) :
         file.write( code_c )
 
 def run( code ) :
-    print(code)
+    p = 0
+    memory = [0]
+    code_p = 0
+    code_len = len(code)
+    while code_p < code_len :
+        i = code[code_p]
+        if i == ">" :
+            p += 1
+            if len( memory ) <= p :
+                memory.append(0)
+            code_p += 1
+        elif i == "<" :
+            p -= 1
+            code_p += 1
+        elif i == "+" :
+            memory[p] += 1
+            code_p += 1
+        elif i == "-" :
+            memory[p] -= 1
+            code_p += 1
+        elif i == "," :
+            while 1 :
+                try :
+                    inp = int( input() )
+                    memory[p] = inp
+                    break
+                except ValueError :
+                    pass
+            code_p += 1
+        elif i == "." :
+            print( chr( memory[p] ) , end = "" )
+            code_p += 1
+        elif i == "[" :
+            if memory[p] :
+                code_p += 1
+            else :
+                code_p += code[code_p:].index( "]" ) + 1
+        elif i == "]" :
+            code_p = code[:code_p].rindex( "[" )
