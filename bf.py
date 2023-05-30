@@ -13,7 +13,7 @@ if argl == 1 and os.path.exists( args[0] ) :
     print(filetype)
 elif args[0] == "-b" and argl > 1 :
     file_path = args[1]
-    print("b")
+    bfc.build( file_path )
 elif args[0] == "-r" and argl > 1 :
     file_path = args[1]
     print("r")
