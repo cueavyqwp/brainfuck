@@ -15,7 +15,7 @@ First install [Brainfuck Syntax](https://github.com/attilabuti/brainfuck-syntax)
 > From [wiki](http://en.wikipedia.org/wiki/Brainfuck)
 
 |||
-|:---:|:---:|
+:---:|:---:
 `>`|increment the data pointer (to point to the next cell to the right).
 `<`|decrement the data pointer (to point to the next cell to the left).
 `+`|increment (increase by one) the byte at the data pointer.
