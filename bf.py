@@ -11,7 +11,7 @@ class bf :
 
     def build( self , path ) -> str :
         with open( path , "r" , encoding = "utf-8" ) as file :
-            self.code = "".join( [ code if code in [ ">" , "<" , "]" , "[" , "+" , "-" , "." , "," ] else "" for code in file.read() ] )
+            self.code = "".join( filter( lambda code : code in [ ">" , "<" , "]" , "[" , "+" , "-" , "." , "," ] , file.read() ) )
         return self.code
 
     def save( self , path ) -> None :
