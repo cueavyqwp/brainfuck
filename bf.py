@@ -4,14 +4,16 @@ main
 
 import sys
 
+style = [ ">" , "<" , "]" , "[" , "+" , "-" , "." , "," ]
+
 class bf :
 
-    def __init__( self ) -> None :
-        self.code = ""
+    def __init__( self , code : str = "" ) -> None :
+        self.code = code
 
     def build( self , path ) -> str :
         with open( path , "r" , encoding = "utf-8" ) as file :
-            self.code = "".join( filter( lambda code : code in [ ">" , "<" , "]" , "[" , "+" , "-" , "." , "," ] , file.read() ) )
+            self.code = file.read()
         return self.code
 
     def save( self , path ) -> None :
@@ -21,11 +23,12 @@ class bf :
     def set( self , code ) -> None :
         self.code = code
 
-    def run( self ) -> bool :
-        code = self.code
-        memory = [ 0 ]
-        code_p = 0
-        p = 0
+    def run( self , func = None , show : bool = True , info : dict = {} ) -> dict :
+        output : str = info[ "output" ] if "output" in info else ""
+        code_p : int = info[ "code_p" ] if "code_p" in info else 0
+        memory : list = info[ "mem" ] if "mem" in info else [ 0 ]
+        code : str = info[ "code" ] if "code" in info else self.bfc
+        p : int = info[ "p" ] if "p" in info else 0
         while code_p < len( code ) :
             match code[ code_p ] :
                 case ">" :
@@ -46,13 +49,23 @@ class bf :
                         except TypeError :
                             pass
                 case "." :
-                    print( chr( memory[ p ] ) , end = "" )
+                    char = chr( memory[ p ] )
+                    output += char
+                    if show :
+                        print( char , end = "" )
                 case "[" :
                     if not memory[ p ] :
                         code_p += code[ code_p : ].index( "]" )
                 case "]" :
                     code_p = code[ : code_p ].rindex( "[" ) - 1
             code_p += 1
+            info = { "code" : code , "mem" : memory , "output" : output , "p" : p , "code_p" : code_p }
+            func( info ) if func else ...
+        return info
+
+    @property
+    def bfc( self ) -> str :
+        return "".join( filter( lambda code : code in style , self.code ) )
 
 if __name__ == "__main__" :
     args = sys.argv[ 1 : ]
