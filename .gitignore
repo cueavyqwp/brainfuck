@@ -1,9 +1,12 @@
 /*
 
+!brainfuck.py
 !README_EN.md
 !README.md
 !.vscode
 !example
 !LICENSE
-!bfc.py
-!bf.py
+!main.py
+
+*__pycache__
+*.py[cod]

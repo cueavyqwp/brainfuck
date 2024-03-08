@@ -3,9 +3,9 @@
     "configurations" : [
         {
             "name" : "brainfuck" ,
-            "type" : "python" ,
+            "type" : "debugpy" ,
             "request" : "launch" ,
-            "program" : "bf.py" ,
+            "program" : "main.py" ,
             "args" : [ "${file}" ] ,
             "justMyCode" : true
         }
