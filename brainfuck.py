@@ -5,7 +5,6 @@ brainfuck
 class brainfuck :
 
     def __init__( self ) -> None :
-        self.style : list[ str ] = [ "<" , ">" , "+" , "-" , "," , "." , "[" , "]" ]
         self.goto : dict[ int , int ] = {}
         self.memory : list[ int ] = [ 0 ]
         self.position : int = 0
@@ -14,16 +13,18 @@ class brainfuck :
 
     def get_goto( self , code : str | None = None ) -> dict[ int , int ] :
         if code is None : code = self.code
-        goto = {}
-        for index in range( len( code ) ) :
-            text = code[ index ]
-            if text == "[" : goto[ index ] = code.index( "]" , index , -1 )
-            elif text == "]" : goto[ index ] = code.rindex( "[" , 0 , index )
+        goto , tmp = {} , []
+        for index , text in enumerate( code ) :
+            if text == "[" : tmp.append( index )
+            elif text == "]" :
+                goto[ pos := tmp.pop() ] = index
+                goto[ index ] = pos
         return goto
 
     def load( self , code : str ) -> None :
         self.code , code = code , ""
-        for line in self.code.splitlines() : code += "".join( filter( lambda text : text in self.style , line.split( "#" )[ 0 ] ) )
+        for line in self.code.splitlines() : code += line.split( "#" )[ 0 ]
+        code = "".join( filter( lambda text : text in [ "<" , ">" , "+" , "-" , "," , "." , "[" , "]" ] , code ) )
         start = code.count( "[" )
         end = code.count( "]" )
         num = abs( start - end )
@@ -69,7 +70,7 @@ class brainfuck :
         print( chr( self.memory[ self.index ] ) , end = "" )
 
     def begin( self ) -> None :
-        if not self.memory[ self.index ] : self.position = self.goto[ self.position ]
+        if self.memory[ self.index ] <= 0 : self.position = self.goto[ self.position ]
 
     def end( self ) -> None :
         self.position = self.goto[ self.position ] - 1
